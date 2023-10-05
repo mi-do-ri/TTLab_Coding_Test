@@ -1,38 +1,57 @@
 #include<bits/stdc++.h>
 using namespace std;
-int N;
-string t;
-bool res[101];
 
 bool check(string t){
+
+    if (t == "") return true;
+
     int n = t.length();
-    stack<char> s;
-    for (int i = 0; i < n; i++){
-        if (s.empty()){
+    stack<char> s; 
+    map<char, char> m = {{'(', ')'}, {'[', ']'}, {'{', '}'}};
+
+    for(int i = 0; i < n; i++){
+        if(t[i] == '(' || t[i] == '[' || t[i] == '{'){ 
             s.push(t[i]);
         }
-        else if ((s.top() == '(' && t[i] == ')') ||
-                 (s.top() == '[' && t[i] == ']') || 
-                 (s.top() == '{' && t[i] == '}')) {
+        else if (t[i] == ']' || t[i] == ')' || t[i] == '}'){ 
+            if(s.empty()){
+                return false;
+            }
+            else{
+                char top = s.top();
+                if(t[i] == m[top]){
                     s.pop();
-                 }
-        else s.push(t[i]);        
+                }
+                else{
+                    return false;
+                }
+            }
+        }
     }
+
     if (s.empty()) return true;
     return false;
 }
 
 int main(){
+
+    int N;
+    vector <string> input;
     cin >> N;
+    
+    cin.ignore(32767, '\n');
     for (int i = 0; i < N; i++){
-        cin >> t;
-        res[i] = check(t);
+        string t;
+        getline(cin, t);
+        input.push_back(t);
     }
 
     for (int i = 0; i < N; i++){
-        if (res[i] == 0) cout << "false" << endl;
-        else cout << "true" << endl;
+        if(check(input[i])){
+            cout << "true" << endl;
+        }
+        else{
+            cout << "false" << endl;
+        }
     }
-    
-    return 0;
 }
