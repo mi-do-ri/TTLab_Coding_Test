@@ -16,7 +16,7 @@ void solution(){
 void Try(int k, int l){
     for (int v = 0; v <= 1; v++){
         if (check(v, k, l)){
-            if (v == 0 && k < x){
+            if (v == 0 && k < x){ 
                 k++;
                 if (k == x || l == y) solution();
                 else Try(k, l);
@@ -36,9 +36,12 @@ int main(){
     cin >> N;
     for (int i = 0; i < N; i++){
         cin >> x >> y;
-        cnt = 0;
-        Try(0, 0);
-        res[i] = cnt;
+        if (x == 0 && y == 0) res[i] = 1;
+        else {
+            cnt = 0;
+            Try(0, 0);
+            res[i] = cnt;
+        }
     }
     for (int i = 0; i < N; i++){
         cout << res[i] << endl;
