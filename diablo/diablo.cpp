@@ -7,14 +7,21 @@ int main(){
     int sum = 0;
     int x = d;
 
-    if (d <= k) return -1;
+    if(m == 0 || k == 0) cout << '0';
+    if (d <= k) {
+        cout << "-1";
+        return 0;
+    } 
 
     while(m > 0){
+        // check phát cuối
+        if (m == 1 && d - k <= 0) {
+            break;
+        }
         if (d - k > 0) {
             m -= 1;
             d -= k;
         }
-        else if (d - k == 0 && m == 1) m -= 1;
         else {
             sum += c;
             d = x;
